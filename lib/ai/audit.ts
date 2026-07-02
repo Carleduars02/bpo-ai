@@ -63,7 +63,7 @@ export async function runAudit(input: AuditInput): Promise<AuditResult> {
   const userMessage = buildAuditUserMessage(input)
 
   const response = await client.messages.create({
-    model: "claude-opus-4-8",
+    model: "claude-sonnet-5",
     max_tokens: 4096,
     thinking: { type: "adaptive" },
     system: AUDIT_SYSTEM_PROMPT,
