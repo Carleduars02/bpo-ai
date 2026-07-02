@@ -94,13 +94,14 @@ export default async function DashboardLayout({
       {/* Sidebar — fijo en el lado izquierdo */}
       <Sidebar />
 
-      {/* Contenido principal */}
-      <div className="flex flex-1 flex-col overflow-hidden">
+      {/* Contenido principal — min-w-0 evita que hijos con ancho fijo (tablas,
+          calendario) empujen todo el layout en vez de scrollear internamente */}
+      <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
         <Header userEmail={userEmail} userName={userName} reminders={allReminders} />
 
         {/* Área de contenido scrolleable */}
-        <main className="flex-1 overflow-y-auto">
-          <div className="p-6 animate-fade-in">
+        <main className="min-w-0 flex-1 overflow-y-auto overflow-x-hidden">
+          <div className="min-w-0 p-4 sm:p-6 animate-fade-in">
             {children}
           </div>
         </main>

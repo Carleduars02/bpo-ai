@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useUIStore } from "@/store/uiStore";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { NAV_SECTIONS } from "@/constants/navigation";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -131,82 +132,101 @@ function SidebarNavItem({
   return linkContent;
 }
 
+function Brand({ collapsed }: { collapsed: boolean }) {
+  return (
+    <div
+      className={cn(
+        "flex items-center border-b border-sidebar-border",
+        collapsed ? "justify-center px-2 py-4" : "gap-2.5 px-4 py-4"
+      )}
+    >
+      <div className="ai-glow flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent shadow-[0_0_14px_-2px_var(--primary)]">
+        <Sparkles className="h-4.5 w-4.5 text-primary-foreground" />
+      </div>
+      {!collapsed && (
+        <div className="min-w-0">
+          <p className="truncate text-[13px] font-bold tracking-tight text-sidebar-foreground leading-tight">
+            BPO <span className="text-primary">AI</span>
+          </p>
+          <p className="truncate text-[10px] text-muted-foreground leading-tight">
+            Profile Optimizer
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function NavList({
+  collapsed,
+  pathname,
+}: {
+  collapsed: boolean;
+  pathname: string;
+}) {
+  return (
+    <nav className="flex-1 overflow-y-auto overflow-x-hidden p-2 space-y-4">
+      {NAV_SECTIONS.map((section, sectionIdx) => (
+        <div key={sectionIdx} className="space-y-1">
+          {section.title && !collapsed && (
+            <p className="flex items-center gap-1.5 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/60">
+              <span className="h-1 w-1 rounded-full bg-primary/50" />
+              {section.title}
+            </p>
+          )}
+          {section.title && collapsed && (
+            <div className="border-t border-sidebar-border mx-2" />
+          )}
+          {section.items.map((item) => {
+            const isActive =
+              item.href === "/"
+                ? pathname === "/"
+                : pathname.startsWith(item.href);
+
+            return (
+              <SidebarNavItem
+                key={item.href}
+                href={item.href}
+                label={item.label}
+                icon={item.icon}
+                badge={item.badge}
+                collapsed={collapsed}
+                isActive={isActive}
+              />
+            );
+          })}
+        </div>
+      ))}
+    </nav>
+  );
+}
+
 export function Sidebar() {
   const pathname = usePathname();
   const { sidebarCollapsed, toggleSidebar } = useUIStore();
+  const isMobile = useIsMobile();
+  // En móvil siempre en modo ícono: no hay espacio para el sidebar expandido
+  // sin tapar el contenido — la preferencia de escritorio no aplica aquí.
+  const collapsed = isMobile || sidebarCollapsed;
 
   return (
     <TooltipProvider delay={0}>
       <aside
         className={cn(
-          "relative flex flex-col border-r border-sidebar-border bg-sidebar",
+          "relative flex shrink-0 flex-col border-r border-sidebar-border bg-sidebar",
           "transition-all duration-300 ease-in-out",
-          sidebarCollapsed ? "w-[60px]" : "w-[240px]"
+          collapsed ? "w-[60px]" : "w-[240px]"
         )}
       >
-        {/* Logo / Brand */}
-        <div
-          className={cn(
-            "flex items-center border-b border-sidebar-border",
-            sidebarCollapsed ? "justify-center px-2 py-4" : "gap-2.5 px-4 py-4"
-          )}
-        >
-          <div className="ai-glow flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent shadow-[0_0_14px_-2px_var(--primary)]">
-            <Sparkles className="h-4.5 w-4.5 text-primary-foreground" />
-          </div>
-          {!sidebarCollapsed && (
-            <div className="min-w-0">
-              <p className="truncate text-[13px] font-bold tracking-tight text-sidebar-foreground leading-tight">
-                BPO <span className="text-primary">AI</span>
-              </p>
-              <p className="truncate text-[10px] text-muted-foreground leading-tight">
-                Profile Optimizer
-              </p>
-            </div>
-          )}
-        </div>
+        <Brand collapsed={collapsed} />
+        <NavList collapsed={collapsed} pathname={pathname} />
 
-        {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto overflow-x-hidden p-2 space-y-4">
-          {NAV_SECTIONS.map((section, sectionIdx) => (
-            <div key={sectionIdx} className="space-y-1">
-              {section.title && !sidebarCollapsed && (
-                <p className="flex items-center gap-1.5 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/60">
-                  <span className="h-1 w-1 rounded-full bg-primary/50" />
-                  {section.title}
-                </p>
-              )}
-              {section.title && sidebarCollapsed && (
-                <div className="border-t border-sidebar-border mx-2" />
-              )}
-              {section.items.map((item) => {
-                const isActive =
-                  item.href === "/"
-                    ? pathname === "/"
-                    : pathname.startsWith(item.href);
-
-                return (
-                  <SidebarNavItem
-                    key={item.href}
-                    href={item.href}
-                    label={item.label}
-                    icon={item.icon}
-                    badge={item.badge}
-                    collapsed={sidebarCollapsed}
-                    isActive={isActive}
-                  />
-                );
-              })}
-            </div>
-          ))}
-        </nav>
-
-        {/* Collapse toggle */}
+        {/* Collapse toggle — solo tiene sentido en escritorio */}
         <button
           onClick={toggleSidebar}
           className={cn(
-            "absolute -right-3 top-[72px] z-10",
-            "flex h-6 w-6 items-center justify-center rounded-full",
+            "absolute -right-3 top-[72px] z-10 hidden md:flex",
+            "h-6 w-6 items-center justify-center rounded-full",
             "border border-sidebar-border bg-sidebar text-sidebar-foreground/60",
             "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
             "transition-colors shadow-sm cursor-pointer"

@@ -114,11 +114,12 @@ export default async function ImagesPage({ searchParams }: PageProps) {
       />
 
       <div className="grid gap-6 lg:grid-cols-3">
-        {/* Main: filter + gallery */}
-        <div className="space-y-4 lg:col-span-2">
+        {/* Main: filter + gallery — min-w-0 evita que un grid item crezca por
+            contenido sin espacios (ej. nombres de archivo largos) */}
+        <div className="min-w-0 space-y-4 lg:col-span-2">
           {/* Search + project filter + view toggle */}
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-            <form className="flex-1">
+            <form className="min-w-0 flex-1">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <input
@@ -172,7 +173,7 @@ export default async function ImagesPage({ searchParams }: PageProps) {
         </div>
 
         {/* Sidebar: uploader */}
-        <div>
+        <div className="min-w-0">
           <ImageUploader projects={normalizedProjects} userId={user.id} />
 
           <div className="mt-4 rounded-lg border border-border bg-card/50 p-4">

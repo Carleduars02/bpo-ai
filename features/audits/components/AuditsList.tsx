@@ -110,20 +110,20 @@ export function AuditsList({ audits, view }: AuditsListProps) {
           <Link
             key={audit.id}
             href={`/auditor/${audit.id}`}
-            className="flex items-center justify-between rounded-xl border border-border bg-card p-4 transition-colors hover:border-ring/40 hover:bg-card/80"
+            className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-card p-4 transition-colors hover:border-ring/40 hover:bg-card/80"
           >
-            <div className="flex items-center gap-4">
+            <div className="flex min-w-0 items-center gap-4">
               <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border text-lg font-bold ${scoreBg(audit.total_score)} ${scoreColor(audit.total_score)}`}>
                 {audit.total_score}
               </div>
-              <div>
-                <p className="font-medium">
+              <div className="min-w-0">
+                <p className="truncate font-medium">
                   {audit.business_name_input || client?.business_name || "Sin nombre"}
                 </p>
-                <p className="text-xs text-muted-foreground">{project?.name}</p>
+                <p className="truncate text-xs text-muted-foreground">{project?.name}</p>
               </div>
             </div>
-            <div className="flex items-center gap-1 text-xs text-muted-foreground">
+            <div className="flex shrink-0 items-center gap-1 text-xs text-muted-foreground">
               <Calendar className="h-3 w-3" />
               {new Date(audit.created_at).toLocaleDateString("es-ES")}
             </div>

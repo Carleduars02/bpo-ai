@@ -157,7 +157,7 @@ export function Header({ userEmail, userName, reminders = [] }: HeaderProps) {
     : userEmail?.[0]?.toUpperCase() ?? "U";
 
   return (
-    <header className="flex h-14 shrink-0 items-center border-b border-border bg-background/95 px-4 gap-4">
+    <header className="flex h-14 shrink-0 items-center border-b border-border bg-background/95 px-4 gap-3">
       {/* Breadcrumb */}
       <div className="flex-1 min-w-0">
         <Breadcrumb />

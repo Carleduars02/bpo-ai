@@ -145,7 +145,7 @@ function AssetSlot({
   searchOpen: boolean
 }) {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex min-w-0 items-center gap-3">
       <button
         type="button"
         onClick={onPickFile}
@@ -165,9 +165,9 @@ function AssetSlot({
           {saving ? <Loader2 className="h-4 w-4 animate-spin text-white" /> : <Pencil className="h-4 w-4 text-white" />}
         </span>
       </button>
-      <div>
-        <p className="text-xs font-medium">{label}</p>
-        <div className="flex items-center gap-2">
+      <div className="min-w-0">
+        <p className="truncate text-xs font-medium">{label}</p>
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
           <button type="button" onClick={onPickFile} className="flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground">
             <Upload className="h-3 w-3" /> {url ? "Cambiar" : "Subir"}
           </button>

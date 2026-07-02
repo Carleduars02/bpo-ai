@@ -199,7 +199,7 @@ export default async function DashboardPage() {
       {/* Content grid */}
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Recent projects */}
-        <Card className="lg:col-span-2">
+        <Card className="min-w-0 lg:col-span-2">
           <CardHeader className="flex flex-row items-center justify-between pb-4">
             <CardTitle className="text-base font-semibold">
               Proyectos recientes
@@ -298,7 +298,7 @@ export default async function DashboardPage() {
         </Card>
 
         {/* Quick actions panel */}
-        <div className="space-y-4">
+        <div className="min-w-0 space-y-4">
           {/* AI status */}
           <Card className="border-primary/20 bg-primary/5">
             <CardHeader className="pb-3">

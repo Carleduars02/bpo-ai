@@ -81,7 +81,7 @@ export default async function TemplateDetailPage({ params }: PageProps) {
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Left column: content preview */}
-        <div className="space-y-6 lg:col-span-2">
+        <div className="min-w-0 space-y-6 lg:col-span-2">
 
           {/* Perfil base */}
           <section className="rounded-xl border border-border bg-card p-5 space-y-4">
@@ -277,7 +277,7 @@ export default async function TemplateDetailPage({ params }: PageProps) {
         </div>
 
         {/* Right column: apply */}
-        <div className="space-y-4">
+        <div className="min-w-0 space-y-4">
           <div className="sticky top-6 space-y-4">
             <div className="rounded-xl border border-primary/30 bg-primary/5 p-5 space-y-4">
               <div>

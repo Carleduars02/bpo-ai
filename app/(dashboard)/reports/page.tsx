@@ -86,17 +86,17 @@ export default async function ReportsPage({ searchParams }: PageProps) {
             return (
               <div
                 key={report.id}
-                className="flex items-center justify-between rounded-xl border border-border bg-card p-4"
+                className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-card p-4"
               >
-                <div className="flex items-center gap-4">
+                <div className="flex min-w-0 items-center gap-4">
                   <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${
                     report.status === "generated" ? "bg-green-500/10" : "bg-primary/10"
                   }`}>
                     <FileText className={`h-4 w-4 ${report.status === "generated" ? "text-green-400" : "text-primary"}`} />
                   </div>
-                  <div>
-                    <p className="font-medium">{report.title}</p>
-                    <p className="text-xs text-muted-foreground">
+                  <div className="min-w-0">
+                    <p className="truncate font-medium">{report.title}</p>
+                    <p className="truncate text-xs text-muted-foreground">
                       {(client as { business_name: string } | null)?.business_name}
                       {(project as { name: string } | null)?.name && (
                         <> · {(project as { name: string }).name}</>
@@ -111,7 +111,7 @@ export default async function ReportsPage({ searchParams }: PageProps) {
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex shrink-0 items-center gap-3">
                   <span className="flex items-center gap-1 text-xs text-muted-foreground">
                     <Calendar className="h-3 w-3" />
                     {new Date(report.created_at).toLocaleDateString("es-ES")}

@@ -93,6 +93,7 @@ export function CommandPalette() {
 
   return (
     <DialogPrimitive.Root open={open} onOpenChange={handleOpenChange}>
+      {/* Escritorio: botón con texto y atajo de teclado */}
       <DialogPrimitive.Trigger
         render={
           <button
@@ -102,6 +103,19 @@ export function CommandPalette() {
             <Search className="h-3.5 w-3.5" />
             Buscar…
             <kbd className="ml-2 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium">⌘K</kbd>
+          </button>
+        }
+      />
+
+      {/* Móvil: no hay atajo de teclado físico, se necesita un botón visible */}
+      <DialogPrimitive.Trigger
+        render={
+          <button
+            type="button"
+            aria-label="Buscar"
+            className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground sm:hidden"
+          >
+            <Search className="h-4 w-4" />
           </button>
         }
       />

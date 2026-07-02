@@ -185,17 +185,17 @@ export default async function MessagesPage({ searchParams }: PageProps) {
                   <Link
                     key={set.id}
                     href={`/messages/${set.id}`}
-                    className="flex items-center justify-between rounded-xl border border-border bg-card p-4 transition-colors hover:border-ring/40 hover:bg-card/80"
+                    className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-card p-4 transition-colors hover:border-ring/40 hover:bg-card/80"
                   >
-                    <div className="flex items-center gap-4">
+                    <div className="flex min-w-0 items-center gap-4">
                       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10">
                         <MessageSquare className="h-4 w-4 text-primary" />
                       </div>
-                      <div>
-                        <p className="font-medium">
+                      <div className="min-w-0">
+                        <p className="truncate font-medium">
                           {(client as { business_name: string } | null)?.business_name ?? "—"}
                         </p>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="truncate text-xs text-muted-foreground">
                           {(project as { name: string } | null)?.name}
                           {set.tone && (
                             <> · <span className="text-foreground/60">{TONE_LABELS[set.tone] ?? set.tone}</span></>
@@ -203,7 +203,7 @@ export default async function MessagesPage({ searchParams }: PageProps) {
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <div className="flex shrink-0 items-center gap-1 text-xs text-muted-foreground">
                       <Calendar className="h-3 w-3" />
                       {new Date(set.created_at).toLocaleDateString("es-ES")}
                     </div>

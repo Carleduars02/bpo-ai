@@ -113,22 +113,22 @@ export default async function ContentPage({ searchParams }: PageProps) {
             return (
               <div
                 key={record.id}
-                className="flex items-center justify-between rounded-xl border border-border bg-card p-4"
+                className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-card p-4"
               >
-                <div className="flex items-center gap-4">
+                <div className="flex min-w-0 items-center gap-4">
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10">
                     <Wand2 className="h-4 w-4 text-primary" />
                   </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <p className="font-medium">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <p className="truncate font-medium">
                         {(client as { business_name: string } | null)?.business_name ?? "Sin cliente"}
                       </p>
-                      <span className="rounded-sm border border-primary/30 bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-primary">
+                      <span className="shrink-0 rounded-sm border border-primary/30 bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-primary">
                         {FORMAT_LABELS[format]}
                       </span>
                     </div>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="truncate text-xs text-muted-foreground">
                       {(project as { name: string } | null)?.name}
                       {record.tone && (
                         <> · <span className="text-foreground/70">{TONE_LABELS[record.tone] ?? record.tone}</span></>
@@ -136,7 +136,7 @@ export default async function ContentPage({ searchParams }: PageProps) {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex shrink-0 items-center gap-3">
                   <span className="flex items-center gap-1 text-xs text-muted-foreground">
                     <Calendar className="h-3 w-3" />
                     {new Date(record.created_at).toLocaleDateString("es-ES")}

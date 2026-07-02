@@ -104,21 +104,21 @@ export function CatalogList({ catalogs, itemCounts, view }: CatalogListProps) {
           <Link
             key={catalog.id}
             href={`/catalog/${catalog.id}`}
-            className="flex items-center justify-between rounded-xl border border-border bg-card p-4 transition-colors hover:border-ring/40 hover:bg-card/80"
+            className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-card p-4 transition-colors hover:border-ring/40 hover:bg-card/80"
           >
-            <div className="flex items-center gap-4">
+            <div className="flex min-w-0 items-center gap-4">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-sm font-bold text-primary">
                 <Package className="h-4 w-4" />
               </div>
-              <div>
-                <p className="font-medium">{catalog.name}</p>
-                <p className="text-xs text-muted-foreground">
+              <div className="min-w-0">
+                <p className="truncate font-medium">{catalog.name}</p>
+                <p className="truncate text-xs text-muted-foreground">
                   {client?.business_name}
                   {project?.name && <> · {project.name}</>}
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-4 text-xs text-muted-foreground">
+            <div className="flex shrink-0 items-center gap-4 text-xs text-muted-foreground">
               <span>{itemCount} producto{itemCount !== 1 ? "s" : ""}</span>
               <span className="hidden items-center gap-1 sm:flex">
                 <Calendar className="h-3 w-3" />

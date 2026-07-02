@@ -152,7 +152,7 @@ export default async function ClientProfilePage({ params, searchParams }: PagePr
 
       <div className="grid gap-6 md:grid-cols-3">
         {/* Columna izquierda: Contacto + Gestión */}
-        <div className="space-y-4 md:col-span-1">
+        <div className="min-w-0 space-y-4 md:col-span-1">
           {/* Contacto */}
           <div className="rounded-xl border border-border bg-card p-4 space-y-3">
             <SectionTitle icon={<Phone className="h-3.5 w-3.5" />} colorClass="bg-primary/10 text-primary" title="Contacto" />
@@ -218,7 +218,7 @@ export default async function ClientProfilePage({ params, searchParams }: PagePr
         </div>
 
         {/* Columna derecha: Descripción + Proyectos */}
-        <div className="space-y-4 md:col-span-2">
+        <div className="min-w-0 space-y-4 md:col-span-2">
           {/* Descripción */}
           {client.description && (
             <div className="rounded-xl border border-border bg-card p-4 space-y-2">
@@ -352,9 +352,9 @@ function SectionTitle({
 
 function InfoRow({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
-    <div className="flex items-center gap-2 text-sm">
+    <div className="flex min-w-0 items-center gap-2 text-sm">
       <span className="shrink-0 text-muted-foreground">{icon}</span>
-      <span className="truncate">{label}</span>
+      <span className="min-w-0 flex-1 truncate">{label}</span>
     </div>
   )
 }
